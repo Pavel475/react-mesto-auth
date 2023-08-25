@@ -1,0 +1,19 @@
+.header__text {
+    color: #FFF;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    margin: 6px 0 0 0;
+    text-decoration: none;
+    max-height: 22px;
+    opacity: 1;
+    -webkit-transition: opacity 0.7s;
+    -o-transition: opacity 0.7s;
+    transition: opacity 0.7s;
+}
+
+.header__text:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}

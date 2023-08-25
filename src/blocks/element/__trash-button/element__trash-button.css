@@ -1,0 +1,20 @@
+.element__trash-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 18px;
+    height: 19px;
+    background-color: transparent;
+    padding: 0px;
+    font-size: 0px;
+    opacity: 1;
+    -webkit-transition: opacity 0.7s;
+    -o-transition: opacity 0.7s;
+    transition: opacity 0.7s;
+    border: 0px;
+}
+
+.element__trash-button:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}

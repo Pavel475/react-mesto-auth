@@ -1,0 +1,27 @@
+.profile__image {
+    position: relative;
+    margin-right: 30px;
+    border-radius: 50%;
+}
+
+.profile__image:hover .profile__pen {
+    display: block;
+    cursor: pointer;
+}
+
+.profile__image:hover .profile__avatar {
+    opacity: 0.2;
+}
+
+
+@media screen and (max-width: 767px) {
+    .profile__image {
+        -ms-grid-column: 1;
+        -ms-grid-column-span: 1;
+        grid-column: 1/2;
+        -ms-grid-row: 1;
+        -ms-grid-row-span: 1;
+        grid-row: 1/2;
+        margin-right: 0;
+    }
+}

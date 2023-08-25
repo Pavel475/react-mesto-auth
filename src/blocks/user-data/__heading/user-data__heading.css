@@ -1,0 +1,9 @@
+.user-data__heading {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    color: rgba(255, 255, 255, 1);
+    margin: 0 0 50px 0;
+    text-align: center;
+}

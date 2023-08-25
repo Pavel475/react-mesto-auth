@@ -1,0 +1,12 @@
+.popup__group {
+    height: 75vh;
+    color: #FFFFFF;
+    position: relative;
+    max-width: 75vw;
+}
+
+@media screen and (max-width: 600px) {
+    .popup__group {
+        height: 52.5vh;
+    }
+}

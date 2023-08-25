@@ -1,0 +1,35 @@
+.element__mask-group {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 282px;
+    max-height: 282px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    -o-object-fit: cover;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 767px) {
+    .element__mask-group {
+        min-height: 500px;
+        max-height: 500px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .element__mask-group {
+        min-height: 388px;
+        max-height: 388px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .element__mask-group {
+        min-height: 282px;
+        max-height: 282px;
+    }
+}
+
+.element__mask-group:hover {
+    cursor: pointer;
+}

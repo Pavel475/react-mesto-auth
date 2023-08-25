@@ -1,0 +1,5 @@
+.element__group {
+    display: flex;
+    flex-direction: column;
+    margin: 22px 20px 0 auto;
+}

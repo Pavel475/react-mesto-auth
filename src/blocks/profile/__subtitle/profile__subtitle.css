@@ -1,0 +1,40 @@
+.profile__subtitle {
+    font-style: normal;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: left;
+    vertical-align: top;
+    margin: 0;
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+    grid-column: 1/2;
+    -ms-grid-row: 2;
+    -ms-grid-row-span: 1;
+    grid-row: 2/3;
+    -ms-grid-row-align: start;
+    align-self: start;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 600px) {
+    .profile__subtitle {
+        max-width: 285px;
+        font-size: 14px;
+        line-height: 17px;
+        -ms-grid-column-align: center;
+            justify-self: center;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .profile__subtitle {
+        max-width: 235px;
+        font-size: 14px;
+        line-height: 17px;
+        -ms-grid-column-align: center;
+            justify-self: center;
+    }
+}
