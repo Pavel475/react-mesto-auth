@@ -8,6 +8,7 @@ const Header = React.memo((props) => {
     function onSignOut(){
         localStorage.removeItem('jwt');
         navigate('/sign-in');
+        props.handleLoginFalse();
     }
 
     return (

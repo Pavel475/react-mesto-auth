@@ -136,6 +136,10 @@ function App() {
     setLoggedIn(true);
   }
 
+  function handleLoginFalse() {
+    setLoggedIn(false);
+  }
+
   function checkTokenValidity() {
     const token = localStorage.getItem('jwt');
     if (token) {
@@ -189,6 +193,7 @@ function App() {
     <div className="page__container">
       <CurrentUserContext.Provider value={currentUser}>
         <Header
+        handleLoginFalse={handleLoginFalse}
         headerUserEmail={headerUserEmail}
         />
         <InfoTooltip
