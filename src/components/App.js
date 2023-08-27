@@ -29,37 +29,29 @@ function App() {
   const [infoTooltipText, setInfoTooltipText] = React.useState('');
   const navigate = useNavigate();
 
-  function mapCards(cards) {
-    return cards.map((card) => {
-        return {
-            _id: card._id,
-            likes: card.likes,
-            link: card.link,
-            name: card.name,
-            owner: card.owner
-        };
-    })
-  }
-
   React.useEffect(() => {
-    tokenCheck();
-  }, [loggedIn]);
-
-  React.useEffect(() => {
-    api.getInitialCards()
-    .then((cardsList) => {
-      setCards(mapCards(cardsList));
-    })
-    .catch((err) => {console.log(err)});
+    checkTokenValidity();
   }, []);
 
   React.useEffect(() => {
-    api.userInfo()
-    .then((response) => {
-      setCurrentUser(response);
-    })
-    .catch((err) => {console.log(err)});
-  }, [])
+    if (loggedIn === true) {
+      api.getInitialCards()
+      .then((cardsList) => {
+        setCards(cardsList);
+      })
+      .catch((err) => {console.log(err)});
+    }
+  }, [loggedIn]);
+
+  React.useEffect(() => {
+    if (loggedIn === true) {
+      api.getUserInfo()
+      .then((response) => {
+        setCurrentUser(response);
+      })
+      .catch((err) => {console.log(err)});
+    }
+  }, [loggedIn])
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -120,7 +112,7 @@ function App() {
     setAddPlacePopupOpen(true);
   }
 
-  function handleInfoTooltipClick() {
+  function openInfoTooltip() {
     setIsInfoTooltipOpen(true);
   }
 
@@ -144,22 +136,20 @@ function App() {
     setLoggedIn(true);
   }
 
-  function handleLoginFalse() {
-    setLoggedIn(false);
-  }
-
-  function tokenCheck() {
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
+  function checkTokenValidity() {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      const jwt = token;
       if (jwt) {
-        apiAuthentification.getContent(jwt)
+        apiAuthentification.checkToken(jwt)
         .then((res) => {
           if (res) {
-            forwardHeaderUserEmail(res.data.email);
             handleLoginTrue();
+            setHeaderUserEmail(res.data.email);
             navigate("/", {replace: true})
           }
-        });
+        })
+        .catch((err) => {console.log(err)});
       }
     }
   }
@@ -175,26 +165,23 @@ function App() {
 
   function handleLogin(data) {
     apiAuthentification.onLogin(data.password, data.email)
-    .then((data) => {
-      if (data.token){
+    .then((res) => {
+      if (res.token){
         handleLoginTrue();
+        setHeaderUserEmail(data.email);
         navigate('/', {replace: true});
       }
     })
     .catch(err => showMistakeInfoTooltip());
   }
 
-  function forwardHeaderUserEmail(email) {
-    setHeaderUserEmail(email);
-  }
-
   function showSuccessfullyInfoTooltip() {
-    handleInfoTooltipClick();
+    openInfoTooltip();
     setInfoTooltipText('Вы успешно зарегистрировались!');
   }
 
   function showMistakeInfoTooltip() {
-    handleInfoTooltipClick();
+    openInfoTooltip();
     setInfoTooltipText('Что-то пошло не так! Попробуйте ещё раз.');
   }
 
@@ -202,7 +189,6 @@ function App() {
     <div className="page__container">
       <CurrentUserContext.Provider value={currentUser}>
         <Header
-        handleLoginFalse={handleLoginFalse}
         headerUserEmail={headerUserEmail}
         />
         <InfoTooltip
@@ -214,10 +200,8 @@ function App() {
           <Route path='/sign-in' element={
           <Login
           handleLogin={handleLogin}
-          showMistakeInfoTooltip={showMistakeInfoTooltip}
           title='Вход'
           name='login'
-          handleLoginTrue={handleLoginTrue}
           />}
           />
           <Route path='/sign-up' element={
@@ -227,7 +211,7 @@ function App() {
           name='Register'
           />}
           />
-          <Route path='*' element={<Navigate to="/sign-in" replace={true} />} />
+          <Route path='*' element={<Navigate to={loggedIn ? '/' : '/sign-in'} replace={true} />} />
           <Route
           path='/'
           element={

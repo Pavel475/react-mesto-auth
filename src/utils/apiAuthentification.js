@@ -20,9 +20,6 @@ class Api {
             body: JSON.stringify({password, email})
         })
         .then(this._handleResponse)
-        .then((res) => {
-            return res;
-        })
     }
 
     onLogin(password, email) {
@@ -36,13 +33,11 @@ class Api {
             if (data.token){
                 localStorage.setItem('jwt', data.token);
                 return data;
-            } else {
-                return;
             }
         })
     }
 
-    getContent(token) {
+    checkToken(token) {
         return fetch(this.url + '/users/me', {
             method: 'GET',
             headers: {
@@ -51,7 +46,6 @@ class Api {
             }
         })
         .then(this._handleResponse)
-        .then(data => data)
     }
 }
 

@@ -12,7 +12,7 @@ class Api {
         }
         return Promise.reject(`Ошибка: ${res.status}`);
     }
-    userInfo() {
+    getUserInfo() {
         return fetch(this.url + '/users/me', {
             headers: this._headers
         })
